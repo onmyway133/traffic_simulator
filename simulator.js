@@ -15,6 +15,7 @@ ETPSimulator.prototype.start = function () {
     game.fps = 15;
     game.preload("chara1.png");
     game.onload = function() {
+        
         /*
         game.rootScene.addEventListener('enterframe', function() { 
             if(this.age % 20 == 0){
@@ -22,20 +23,8 @@ ETPSimulator.prototype.start = function () {
             }
         });
         */
-        
-        var bear = new ETPBus(game, 32, 32);
-        bear.image = game.assets["chara1.png"];
-        bear.x = 0;
-        bear.y = 0;
-        bear.frame = 5;
-        game.rootScene.addChild(bear);
 
-        bear.addEventListener("enterframe", function() {
-            this.x += 1;
-            this.frame = this.age % 2 + 6;
-        });
-        
-        //vehicleManager.createVehicle(game, allInput, "Bus");
+        vehicleManager.createVehicle(game, allInput, "Bus");
     };
     
     

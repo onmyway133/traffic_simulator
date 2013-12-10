@@ -1,7 +1,8 @@
 // Vehicle
 var ETPVehicle = enchant.Class.create(enchant.Sprite, {
     initialize : function (game, x, y) {
-        enchant.Sprite.call(this, game, x, y);
+        // Do not use Sprite.call(this, game, x, y)
+        enchant.Sprite.call(this, x, y);
         this.name = "Vehicle";
         this.kW = 0;
         this.kH = 0;
@@ -9,6 +10,7 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         this.appearInterval = 0;
         this.defaultLane = 0;
         this.priority = 0;  // car in front of higher priority car must change lane
+        this.game = game;
     }
 });
 
@@ -47,7 +49,7 @@ var ETPBus = enchant.Class.create(ETPVehicle, {
        ETPVehicle.call(this, game, x, y);
        this.name = "Bus";
        this.kW = 16;
-       this.KH = 5;
+       this.kH = 5;
        this.maxVelocity = 10;
        this.appearInterval = 300;
        this.defaultLane = 1;
@@ -55,31 +57,3 @@ var ETPBus = enchant.Class.create(ETPVehicle, {
    }
 });
 
-// Vehicle Manager
-function VehicleManager() {
-    
-}
-
-VehicleManager.prototype.createVehicle = function (game, allInput, name) {
-    var vehicle = null;
-    if (name == "Bike") {
-        vehicle = new ETPBike(game, allInput.bike.kW * allInput.squareScale, allInput.bike.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
-    } 
-    else if (name == "Car") {
-        vehicle = new ETPCar(game, allInput.car.kW * allInput.squareScale, allInput.car.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
-    }
-    else if (name == "Bus") {
-        vehicle = new ETPBus(game, allInput.bus.kW * allInput.squareScale, allInput.bus.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
-    }
-    
-    game.rootScene.addChild(vehicle);
-    
-    // Set initial location
-    vehicle.x = 0;
-    vehicle.y = 0;
-    
-    return vehicle;
-};
