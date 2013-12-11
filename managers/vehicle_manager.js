@@ -8,24 +8,27 @@ VehicleManager.prototype.createVehicle = function (game, allInput, name) {
     var vehicle = null;
     if (name == "Bike") {
         vehicle = new ETPBike(game, allInput.bike.kW * allInput.squareScale, allInput.bike.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
+        vehicle.backgroundColor = "red";
     } 
     else if (name == "Car") {
         vehicle = new ETPCar(game, allInput.car.kW * allInput.squareScale, allInput.car.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
+        vehicle.backgroundColor = "green";
     }
     else if (name == "Bus") {
         vehicle = new ETPBus(game, allInput.bus.kW * allInput.squareScale, allInput.bus.kH * allInput.squareScale);
-        vehicle.image = game.assets["chara1.png"];
-        console.log(vehicle.width);
-        console.log(vehicle.height);
+        vehicle.backgroundColor = "blue";
     }
     
     game.rootScene.addChild(vehicle);
     
+    
+    vehicle.addEventListener("enterframe", function(){
+            this.x += 1 * vehicle.velocity;
+    });
+    
     // Set initial location
-    vehicle.x = 0;
-    vehicle.y = 0;
+    vehicle.x = - (vehicle.kW * allInput.squareScale);
+    vehicle.y = (((vehicle.defaultLane - 1) * allInput.lane.kH) + ((allInput.lane.kH - vehicle.kH)/2)) * allInput.squareScale;
     
     return vehicle;
 };

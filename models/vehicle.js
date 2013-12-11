@@ -7,6 +7,7 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         this.kW = 0;
         this.kH = 0;
         this.maxVelocity = 0;
+        this.velocity = rand(this.maxVelocity) + 1;
         this.appearInterval = 0;
         this.defaultLane = 0;
         this.priority = 0;  // car in front of higher priority car must change lane
@@ -20,9 +21,10 @@ var ETPBike = enchant.Class.create(ETPVehicle, {
    initialize : function (game, x, y) {
        ETPVehicle.call(this, game, x, y);
        this.name = "Bike";
-       this.kW = 2;
-       this.kH = 1;
+       this.kW = 4; // default 2
+       this.kH = 2; // defaul 1
        this.maxVelocity = 8;
+       this.velocity = rand(this.maxVelocity) + 1;
        this.appearInterval = 2;
        this.defaultLane = 3;
        this.priority = 0;
@@ -51,7 +53,8 @@ var ETPBus = enchant.Class.create(ETPVehicle, {
        this.kW = 16;
        this.kH = 5;
        this.maxVelocity = 10;
-       this.appearInterval = 300;
+       this.velocity = rand(this.maxVelocity) + 1;
+       this.appearInterval = 10;   // default 300
        this.defaultLane = 1;
        this.priority = 1;
    }

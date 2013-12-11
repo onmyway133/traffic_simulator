@@ -13,18 +13,16 @@ ETPSimulator.prototype.start = function () {
     var game = new Core(gameWidth, gameHeight);
 
     game.fps = 15;
-    game.preload("chara1.png");
+    game.preload("images/chara1.png", "images/chara2.png", "images/chara3.png");
     game.onload = function() {
-        
-        /*
         game.rootScene.addEventListener('enterframe', function() { 
+            console.log(this.age);
             if(this.age % 20 == 0){
-                vehicleManager.createVehicle(game, allInput, "bike");
+                var vehicleNames = ["Bike", "Car", "Bus"];
+                var randIndex = rand(3);
+                vehicleManager.createVehicle(game, allInput, vehicleNames[randIndex]);
             }
         });
-        */
-
-        vehicleManager.createVehicle(game, allInput, "Bus");
     };
     
     
