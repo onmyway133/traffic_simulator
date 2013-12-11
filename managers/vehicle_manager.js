@@ -32,3 +32,15 @@ VehicleManager.prototype.createVehicle = function (game, allInput, name) {
     
     return vehicle;
 };
+
+VehicleManager.prototype.spawnVehicles = function (game, allInput) {
+    if(game.rootScene.age % allInput.bike.appearInterval == 0){
+        this.createVehicle(game, allInput, "Bike");
+    }
+    if(game.rootScene.age % allInput.car.appearInterval == 0){
+        this.createVehicle(game, allInput, "Car");
+    }
+    if(game.rootScene.age % allInput.bus.appearInterval == 0){
+        this.createVehicle(game, allInput, "Bus");
+    }
+};

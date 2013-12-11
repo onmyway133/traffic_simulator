@@ -16,12 +16,7 @@ ETPSimulator.prototype.start = function () {
     game.preload("images/chara1.png", "images/chara2.png", "images/chara3.png");
     game.onload = function() {
         game.rootScene.addEventListener('enterframe', function() { 
-            console.log(this.age);
-            if(this.age % 20 == 0){
-                var vehicleNames = ["Bike", "Car", "Bus"];
-                var randIndex = rand(3);
-                vehicleManager.createVehicle(game, allInput, vehicleNames[randIndex]);
-            }
+            vehicleManager.spawnVehicles(game, allInput);
         });
     };
     
