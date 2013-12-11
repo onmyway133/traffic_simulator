@@ -42,3 +42,19 @@ function ETPAllInput() {
     this.constraintChangeLane_BehindDistance = 2;
     this.constraintChangeLane_FrontDistance = 2;
 }
+
+ETPAllInput.prototype.setLane1Mode = function (mode) {
+    this.lane1Mode = mode;
+    
+    if (mode == ETPLane1Mode.BUS_ONLY) {
+        this.bike.availableLanes = [2, 3];
+        this.car.availableLanes = [2, 3];
+    }
+    else if (mode == ETPLane1Mode.BUS_BIKE) {
+        this.car.availableLanes = [2, 3];
+    }
+    else if (mode == ETPLane1Mode.ALL) {
+        
+    }
+    
+};

@@ -27,20 +27,23 @@ VehicleManager.prototype.createVehicle = function (game, allInput, name) {
     });
     
     // Set initial location
+    var availableLanesCount = vehicle.availableLanes.length;
+    vehicle.lane =  vehicle.availableLanes[rand(availableLanesCount)];
+    
     vehicle.x = - (vehicle.kW * allInput.squareScale);
-    vehicle.y = (((vehicle.defaultLane - 1) * allInput.lane.kH) + ((allInput.lane.kH - vehicle.kH)/2)) * allInput.squareScale;
+    vehicle.y = (((vehicle.lane - 1) * allInput.lane.kH) + ((allInput.lane.kH - vehicle.kH)/2)) * allInput.squareScale;
     
     return vehicle;
 };
 
 VehicleManager.prototype.spawnVehicles = function (game, allInput) {
-    if(game.rootScene.age % allInput.bike.appearInterval == 0){
+    if (game.rootScene.age % allInput.bike.appearInterval == 0) {
         this.createVehicle(game, allInput, "Bike");
     }
-    if(game.rootScene.age % allInput.car.appearInterval == 0){
+    if (game.rootScene.age % allInput.car.appearInterval == 0) {
         this.createVehicle(game, allInput, "Car");
     }
-    if(game.rootScene.age % allInput.bus.appearInterval == 0){
+    if (game.rootScene.age % allInput.bus.appearInterval == 0) {
         this.createVehicle(game, allInput, "Bus");
     }
 };
