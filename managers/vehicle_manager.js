@@ -18,32 +18,31 @@ VehicleManager.prototype.createVehicle = function (game, allInput, name) {
         vehicle = new ETPBus(game, allInput.bus.kW * allInput.squareScale, allInput.bus.kH * allInput.squareScale);
         vehicle.backgroundColor = "blue";
     }
-    
-    game.rootScene.addChild(vehicle);
-    
-    
-    vehicle.addEventListener("enterframe", function(){
-            this.x += 1 * vehicle.velocity;
-    });
-    
+
     // Set initial location
-    var availableLanesCount = vehicle.availableLanes.length;
-    vehicle.lane =  vehicle.availableLanes[rand(availableLanesCount)];
+    var availableLanesCount = vehicle.availableLaneNos.length;
+    vehicle.laneNo =  vehicle.availableLaneNos[rand(availableLanesCount)];
     
     vehicle.x = - (vehicle.kW * allInput.squareScale);
-    vehicle.y = (((vehicle.lane - 1) * allInput.lane.kH) + ((allInput.lane.kH - vehicle.kH)/2)) * allInput.squareScale;
+    vehicle.y = (((vehicle.laneNo - 1) * allInput.lane.kH) + ((allInput.lane.kH - vehicle.kH)/2)) * allInput.squareScale;
     
     return vehicle;
 };
 
-VehicleManager.prototype.spawnVehicles = function (game, allInput) {
+VehicleManager.prototype.spawnVehicles = function (game, allInput, laneManager) {
     if (game.rootScene.age % allInput.bike.appearInterval == 0) {
-        this.createVehicle(game, allInput, "Bike");
+        var bike = this.createVehicle(game, allInput, "Bike");
+        game.rootScene.addChild(bike);
+        laneManager.addToLaneArray(bike);
     }
     if (game.rootScene.age % allInput.car.appearInterval == 0) {
-        this.createVehicle(game, allInput, "Car");
+        var car = this.createVehicle(game, allInput, "Car");
+        game.rootScene.addChild(car);
+        laneManager.addToLaneArray(car);
     }
     if (game.rootScene.age % allInput.bus.appearInterval == 0) {
-        this.createVehicle(game, allInput, "Bus");
+        var bus = this.createVehicle(game, allInput, "Bus");
+        game.rootScene.addChild(bus);
+        laneManager.addToLaneArray(bus);
     }
 };

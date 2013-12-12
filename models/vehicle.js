@@ -11,8 +11,12 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         this.defaultLane = 0;
         this.priority = 0;  // car in front of higher priority car must change lane
         this.game = game;
-        this.availableLanes = null;
-        this.lane = 0;
+        this.availableLaneNos = null;
+        this.laneNo = 0;
+        this.upwardVehicle = null;
+    },
+    move : function () {
+        this.x += this.velocity; 
     }
 });
 
@@ -29,7 +33,7 @@ var ETPBike = enchant.Class.create(ETPVehicle, {
        this.appearInterval = 5; // default 2
        this.defaultLane = 3;
        this.priority = 0;
-       this.availableLanes = [1, 2, 3];
+       this.availableLaneNos = [1, 2, 3];
    }
 });
 
@@ -45,7 +49,7 @@ var ETPCar = enchant.Class.create(ETPVehicle, {
        this.appearInterval = 10; // default 4
        this.defaultLane = 2;
        this.priority = 0;
-       this.availableLanes = [1, 2, 3];
+       this.availableLaneNos = [1, 2, 3];
    }
 });
 
@@ -61,7 +65,7 @@ var ETPBus = enchant.Class.create(ETPVehicle, {
        this.appearInterval = 20;   // default 300
        this.defaultLane = 1;
        this.priority = 1;
-       this.availableLanes = [1];
+       this.availableLaneNos = [1];
    }
 });
 
