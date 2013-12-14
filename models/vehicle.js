@@ -33,8 +33,14 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         var sVelocity = rand(this.sMaxVelocity) + 1;
         cloneVehicle.velocity = sVelocity * (this.scale - 2);   // default * this.scale
     },
-    goUpward : function () {
-        this.x += this.velocity;
+    goUpward : function (distanceToGo) {
+        // Vehicle can't move longer than velocity
+        if (distanceToGo < this.velocity) {
+            this.x += distanceToGo;
+        }
+        else {
+            this.x += this.velocity;
+        }
     }
 });
 

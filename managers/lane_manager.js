@@ -37,9 +37,17 @@ ETPLaneManager.prototype.addToLaneArray = function (vehicle) {
 };
 
 ETPLaneManager.prototype.moveAllVehicles = function (scene, inputManager) {
-    // TODO: the order of moving vehicle (call moveVehicle) may be important
-    for (var i=0; i<this.laneArrayAll.length; ++i) {
-        this.moveVehicle(this.laneArrayAll[i]);
+    // Vehicles in the far right moves first
+    for (var i=this.laneArray1.length - 1; i>=0; --i) {
+        this.moveVehicle(this.laneArray1[i]);
+    }
+    
+    for (var i=this.laneArray2.length - 1; i>=0; --i) {
+        this.moveVehicle(this.laneArray2[i]);
+    }
+    
+    for (var i=this.laneArray3.length - 1; i>=0; --i) {
+        this.moveVehicle(this.laneArray3[i]);
     }
 };
 
@@ -48,11 +56,14 @@ ETPLaneManager.prototype.moveVehicle = function (vehicle) {
     // Check if there is vehicle upward
     // TODO: consider the velocity as well, if there is car upward, should go slowly than velocity
     if (vehicle.upwardVehicle) {
-        if ((vehicle.upwardVehicle.x - (vehicle.x + vehicle.width)) > this.inputManager.constraint.goUpwardDistance) {
-            vehicle.goUpward();   
+        var distanceFromUpwardVehicle = vehicle.upwardVehicle.x - (vehicle.x + vehicle.width);
+        if (distanceFromUpwardVehicle > this.inputManager.constraint.goUpwardDistance) {
+            // This vehicle can go faster than upward vehicle
+            var distanceToGo = distanceFromUpwardVehicle - this.inputManager.constraint.goUpwardDistance;
+            vehicle.goUpward(distanceToGo);   
         }   
     } else {
-        vehicle.goUpward(); 
+        vehicle.goUpward(vehicle.velocity); 
     }
     
     // Check if vehicle behind has greater priority, then must change lane
