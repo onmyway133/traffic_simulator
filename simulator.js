@@ -4,17 +4,14 @@ function ETPSimulator () {
 
 ETPSimulator.prototype.start = function () {
     
-    var inputManager = new ETPInputManager();
     var vehicleManager = new ETPVehicleManager();
     var laneManager = new ETPLaneManager();
+    var inputManager = this.inputManager;
     
-    var gameWidth = inputManager.lane.kW * inputManager.squareScale;
-    var gameHeight = inputManager.lane.kH * inputManager.squareScale * inputManager.numerOfLane;
- 
-    var game = new Core(gameWidth, gameHeight);
+    var game = new Core(this.inputManager.lane.width, this.inputManager.lane.height * this.inputManager.lane.numberOfLanes);
 
     game.fps = 15;
-    game.preload("images/chara1.png", "images/chara2.png", "images/chara3.png");
+    this.preloadResources(game);
     game.onload = function() {
         game.rootScene.addEventListener('enterframe', function() {
             // Spawn vehicle and add to lane array
@@ -24,8 +21,6 @@ ETPSimulator.prototype.start = function () {
             laneManager.move(game, inputManager);
         });
     };
-    
-    
     
     game.start();
 };
@@ -42,7 +37,16 @@ ETPSimulator.prototype.stop = function () {
     
 };
 
-ETPSimulator.prototype.applyInput = function () {
+ETPSimulator.prototype.getInput = function (inputFromUser) {
+    // Get configure input from user
+    var inputManager = new ETPInputManager();
     
+    // ...
+    
+    this.inputManager = inputManager;
 };
+
+ETPSimulator.prototype.preloadResources = function (game) {
+    game.preload("images/chara1.png", "images/chara2.png", "images/chara3.png");
+}
 

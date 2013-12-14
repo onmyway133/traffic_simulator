@@ -2,12 +2,22 @@ function ETPSquare () {
     // unit: meter
     this.kW = 0.5;
     this.kH = 0.5;
+    this.scale = 4;
+}
+
+// Lane mode
+var ETPLane1Mode = {
+    BUS_ONLY : 1,
+    BUS_BIKE : 2,
+    ALL : 3
 }
 
 function ETPLane () {
     // unit: square
     this.kW = 200;  // default 1000
     this.kH = 7;
+    this.numberOfLanes = 3;
+    this.lane1Mode = ETPLane1Mode.BUS_ONLY;
 }
 
 // Traffic light
@@ -17,9 +27,9 @@ function ETPTrafficLight () {
     this.greenLightDuration = 60;
 }
 
-// Lane mode
-var ETPLane1Mode = {
-    BUS_ONLY : 1,
-    BUS_BIKE : 2,
-    ALL : 3
+// Constraint
+function ETPConstraint () {
+    this.goUpward_Distance = 2;
+    this.changeLane_BehindDistance = 2;
+    this.changeLane_FrontDistance = 2;   
 }
