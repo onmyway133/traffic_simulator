@@ -2,12 +2,12 @@ function ETPInputManager() {
     this.square = new ETPSquare();
     this.lane = new ETPLane();
     
-    this.lane.width = this.lane.kW * this.square.scale;
-    this.lane.height = this.lane.kH * this.square.scale;
+    this.lane.width = this.lane.sW * this.square.scale;
+    this.lane.height = this.lane.sH * this.square.scale;
     
-    this.prototypeBike = new ETPBike(4 * this.square.scale, 2 * this.square.scale); // default 2 * 1
-    this.prototypeCar = new ETPCar(8 * this.square.scale, 5 * this.square.scale);   // default 8 * 5
-    this.prototypeBus = new ETPBus(16 * this.square.scale, 5 * this.square.scale);  // default 16 * 5
+    this.prototypeBike = new ETPBike(4, 2, this.square.scale); // default 2 * 1
+    this.prototypeCar = new ETPCar(8, 5, this.square.scale);   // default 8 * 5
+    this.prototypeBus = new ETPBus(16, 5, this.square.scale);  // default 16 * 5
 
     this.constraint = new ETPConstraint();
 }

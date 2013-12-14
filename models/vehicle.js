@@ -1,10 +1,16 @@
 // Vehicle
 var ETPVehicle = enchant.Class.create(enchant.Sprite, {
-    initialize : function (w, h) {
+    initialize : function (sW, sH, scale) {
+        
         // NOTE: parameters must match
-        enchant.Sprite.call(this, w, h);
+        enchant.Sprite.call(this, sW * scale, sH * scale);
+        
+        this.sW = sW;
+        this.sH = sH;
+        this.scale = scale;
+        
         this.name = "Vehicle";
-        this.maxVelocity = 0;
+        this.sMaxVelocity = 0;
         this.appearInterval = 0;
         this.defaultLane = 0;
         this.priority = 0;  // car in front of higher priority car must change lane
@@ -14,7 +20,7 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
     },
     applyProperties : function (cloneVehicle) {
         cloneVehicle.name = this.name;
-        cloneVehicle.maxVelocity = this.maxVelocity;
+        cloneVehicle.sMaxVelocity = this.sMaxVelocity;
         cloneVehicle.appearInterval = this.appearInterval;
         cloneVehicle.defaultLane = this.defaultLane;
         cloneVehicle.priority = this.priority;
@@ -23,6 +29,10 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         // set laneNo
         var availableLanesCount = this.availableLaneNos.length;
         cloneVehicle.laneNo =  this.availableLaneNos[rand(availableLanesCount)];
+        
+        // set velocity
+        var sVelocity = rand(this.sMaxVelocity) + 1;
+        cloneVehicle.velocity = sVelocity * this.scale;
     },
     move : function () {
         if (this.canMoveUpward()) {
@@ -45,11 +55,10 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
 
 // Bike
 var ETPBike = enchant.Class.create(ETPVehicle, {
-   initialize : function (w, h) {
-       ETPVehicle.call(this, w, h);
+   initialize : function (sW, sH, scale) {
+       ETPVehicle.call(this, sW, sH, scale);
        this.name = "Bike";
-       this.maxVelocity = 8;
-       this.velocity = rand(this.maxVelocity) + 1;
+       this.sMaxVelocity = 8;
        this.appearInterval = 5; // default 2
        this.defaultLane = 3;
        this.priority = 0;
@@ -59,11 +68,10 @@ var ETPBike = enchant.Class.create(ETPVehicle, {
 
 // Car
 var ETPCar = enchant.Class.create(ETPVehicle, {
-   initialize : function (w, h) {
-       ETPVehicle.call(this, w, h);
+   initialize : function (sW, sH, scale) {
+       ETPVehicle.call(this, sW, sH, scale);
        this.name = "Car";
-       this.maxVelocity = 12;
-       this.velocity = rand(this.maxVelocity) + 1;
+       this.sMaxVelocity = 12;
        this.appearInterval = 10; // default 4
        this.defaultLane = 2;
        this.priority = 0;
@@ -73,11 +81,10 @@ var ETPCar = enchant.Class.create(ETPVehicle, {
 
 // Bus
 var ETPBus = enchant.Class.create(ETPVehicle, {
-   initialize : function (w, h) {
-       ETPVehicle.call(this, w, h);
+   initialize : function (sW, sH, scale) {
+       ETPVehicle.call(this, sW, sH, scale);
        this.name = "Bus";
-       this.maxVelocity = 10;
-       this.velocity = rand(this.maxVelocity) + 1;
+       this.sMaxVelocity = 10;
        this.appearInterval = 20;   // default 300
        this.defaultLane = 1;
        this.priority = 1;

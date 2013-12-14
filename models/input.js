@@ -1,7 +1,7 @@
 function ETPSquare () {
     // unit: meter
-    this.kW = 0.5;
-    this.kH = 0.5;
+    this.sW = 0.5;
+    this.sH = 0.5;
     this.scale = 4;
 }
 
@@ -14,8 +14,8 @@ var ETPLane1Mode = {
 
 function ETPLane () {
     // unit: square
-    this.kW = 200;  // default 1000
-    this.kH = 7;
+    this.sW = 200;  // default 1000
+    this.sH = 7;
     this.numberOfLanes = 3;
     this.lane1Mode = ETPLane1Mode.BUS_ONLY;
 }

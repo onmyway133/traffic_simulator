@@ -5,23 +5,22 @@ function ETPVehicleManager() {
 
 ETPVehicleManager.prototype.createVehicle = function (inputManager, name) {
     var vehicle = null;
-    console.log(name);
     if (name == "Bike") {
-        vehicle = new ETPBike(inputManager.prototypeBike.width, inputManager.prototypeBike.height);
+        vehicle = new ETPBike(inputManager.prototypeBike.sW, inputManager.prototypeBike.sH, inputManager.square.scale);
         inputManager.prototypeBike.applyProperties(vehicle);
         vehicle.backgroundColor = "red";
     } 
     else if (name == "Car") {
-        vehicle = new ETPCar(inputManager.prototypeCar.width, inputManager.prototypeCar.height);
+        vehicle = new ETPCar(inputManager.prototypeCar.sW, inputManager.prototypeCar.sH, inputManager.square.scale);
         inputManager.prototypeCar.applyProperties(vehicle);
-        vehicle.backgroundColor = "green";
-    }
-    else if (name == "Bus") {
-        vehicle = new ETPBus(inputManager.prototypeBus.width, inputManager.prototypeBus.height);
-        inputManager.prototypeBus.applyProperties(vehicle);
         vehicle.backgroundColor = "blue";
     }
-    
+    else if (name == "Bus") {
+        vehicle = new ETPBus(inputManager.prototypeBus.sW, inputManager.prototypeBus.sH, inputManager.square.scale);
+        inputManager.prototypeBus.applyProperties(vehicle);
+        vehicle.backgroundColor = "green";
+    }
+
     vehicle.x = -vehicle.width;
     vehicle.y = (vehicle.laneNo -1 ) * inputManager.lane.height + (inputManager.lane.height - vehicle.height)/2;
     
