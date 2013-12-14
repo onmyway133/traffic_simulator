@@ -4,12 +4,12 @@ function ETPSimulator () {
 
 ETPSimulator.prototype.start = function () {
     
-    var allInput = new ETPAllInput();
-    var vehicleManager = new VehicleManager();
-    var laneManager = new LaneManager();
+    var inputManager = new ETPInputManager();
+    var vehicleManager = new ETPVehicleManager();
+    var laneManager = new ETPLaneManager();
     
-    var gameWidth = allInput.lane.kW * allInput.squareScale;
-    var gameHeight = allInput.lane.kH * allInput.squareScale * allInput.numerOfLane;
+    var gameWidth = inputManager.lane.kW * inputManager.squareScale;
+    var gameHeight = inputManager.lane.kH * inputManager.squareScale * inputManager.numerOfLane;
  
     var game = new Core(gameWidth, gameHeight);
 
@@ -18,10 +18,10 @@ ETPSimulator.prototype.start = function () {
     game.onload = function() {
         game.rootScene.addEventListener('enterframe', function() {
             // Spawn vehicle and add to lane array
-            vehicleManager.spawnVehicles(game, allInput, laneManager);
+            vehicleManager.spawnVehicles(game, inputManager, laneManager);
             
             // move all vehicles
-            laneManager.move(game, allInput);
+            laneManager.move(game, inputManager);
         });
     };
     

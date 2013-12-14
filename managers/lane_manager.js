@@ -1,11 +1,11 @@
 // Lane Manager
-function LaneManager () {
+function ETPLaneManager () {
     this.laneArray1 = [];
     this.laneArray2 = [];
     this.laneArray3 = [];
 }
 
-LaneManager.prototype.addToLaneArray = function (vehicle) {
+ETPLaneManager.prototype.addToLaneArray = function (vehicle) {
     var laneArray = null;
     
     if (vehicle.laneNo == 1) {
@@ -28,7 +28,7 @@ LaneManager.prototype.addToLaneArray = function (vehicle) {
     vehicle.upwardVehicle = upwardVehicle;
 };
 
-LaneManager.prototype.move = function (game, allInput) {
+ETPLaneManager.prototype.move = function (game, inputManager) {
     for (var i=0; i<this.laneArray1.length; ++i) {
         this.laneArray1[i].move();
     }

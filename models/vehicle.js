@@ -16,7 +16,20 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         this.upwardVehicle = null;
     },
     move : function () {
-        this.x += this.velocity; 
+        if (this.canMoveUpward()) {
+            this.x += this.velocity; 
+        }
+        else {
+            
+        }
+    },
+    canMoveUpward : function () {
+        // TODO: should consider vehicle width and velocity
+        if (this.upwardVehicle) {
+            return ((this.upwardVehicle.x - this.x) / 4 > 10 );
+        }
+
+        return true;
     }
 });
 
