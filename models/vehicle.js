@@ -16,6 +16,7 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         this.availableLaneNos = null;
         this.laneNo = 0;
         this.upwardVehicle = null;
+        this.behindVehicle = null;
     },
     applyProperties : function (cloneVehicle) {
         cloneVehicle.name = this.name;

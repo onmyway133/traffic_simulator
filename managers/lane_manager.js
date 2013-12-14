@@ -26,8 +26,12 @@ ETPLaneManager.prototype.addToLaneArray = function (vehicle) {
     // First get previous vehicle at the beginning of the array, may be null
     var upwardVehicle = laneArray[0];
     
-    // Link to previous Vehicle
-    vehicle.upwardVehicle = upwardVehicle;
+    if (upwardVehicle) {
+        // Link to upward Vehicle
+        vehicle.upwardVehicle = upwardVehicle;
+        upwardVehicle.behindVehicle = vehicle;
+    }
+    
     
     // Add vehicle to the beginning of the array
     laneArray.unshift(vehicle);
@@ -58,7 +62,7 @@ ETPLaneManager.prototype.moveVehicle = function (vehicle) {
     if (vehicle.upwardVehicle) {
         var distanceFromUpwardVehicle = vehicle.upwardVehicle.x - (vehicle.x + vehicle.width);
         if (distanceFromUpwardVehicle > this.inputManager.constraint.goUpwardDistance) {
-            // This vehicle can go faster than upward vehicle
+            // This vehicle velocity may be greater than distanceToGo, so must check
             var distanceToGo = distanceFromUpwardVehicle - this.inputManager.constraint.goUpwardDistance;
             vehicle.goUpward(distanceToGo);   
         }   
@@ -67,6 +71,11 @@ ETPLaneManager.prototype.moveVehicle = function (vehicle) {
     }
     
     // Check if vehicle behind has greater priority, then must change lane
+    if (vehicle.behindVehicle) {  
+        if (vehicle.priority < vehicle.behindVehicle.priority) {
+            console.log("Notice: behind vehicle has greater priority, we must change lane as soon as possible");   
+        }
+    }
     
     // Change lane
     
