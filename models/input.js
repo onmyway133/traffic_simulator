@@ -28,8 +28,12 @@ function ETPTrafficLight () {
 }
 
 // Constraint
-function ETPConstraint () {
-    this.goUpward_Distance = 2;
-    this.changeLane_BehindDistance = 2;
-    this.changeLane_FrontDistance = 2;   
+function ETPConstraint (scale) {
+    this.sGoUpwardDistance = 2;
+    this.sChangeLaneBehindDistance = 2;
+    this.sChangeLaneUpwardDistance = 2;   
+    
+    this.goUpwardDistance = this.sGoUpwardDistance * scale;
+    this.changeLaneBehindDistance = this.sChangeLaneBehindDistance * scale;
+    this.changeLaneUpwardDistance = this.sChangeLaneUpwardDistance * scale;
 }

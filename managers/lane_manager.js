@@ -1,8 +1,13 @@
 // Lane Manager
-function ETPLaneManager () {
+function ETPLaneManager (inputManager) {
     this.laneArray1 = [];
     this.laneArray2 = [];
     this.laneArray3 = [];
+    
+    // Contains all vehicles
+    this.laneArrayAll = [];
+    
+    this.inputManager = inputManager;
 }
 
 ETPLaneManager.prototype.addToLaneArray = function (vehicle) {
@@ -21,23 +26,37 @@ ETPLaneManager.prototype.addToLaneArray = function (vehicle) {
     // First get previous vehicle at the beginning of the array, may be null
     var upwardVehicle = laneArray[0];
     
+    // Link to previous Vehicle
+    vehicle.upwardVehicle = upwardVehicle;
+    
     // Add vehicle to the beginning of the array
     laneArray.unshift(vehicle);
     
-    // Link to previous Vehicle
-    vehicle.upwardVehicle = upwardVehicle;
+    // We don't care the position in this array
+    this.laneArrayAll.push(vehicle);
 };
 
-ETPLaneManager.prototype.move = function (game, inputManager) {
-    for (var i=0; i<this.laneArray1.length; ++i) {
-        this.laneArray1[i].move();
+ETPLaneManager.prototype.moveAllVehicles = function (scene, inputManager) {
+    // TODO: the order of moving vehicle (call moveVehicle) may be important
+    for (var i=0; i<this.laneArrayAll.length; ++i) {
+        this.moveVehicle(this.laneArrayAll[i]);
+    }
+};
+
+ETPLaneManager.prototype.moveVehicle = function (vehicle) {
+    // Move upward
+    // Check if there is vehicle upward
+    // TODO: consider the velocity as well, if there is car upward, should go slowly than velocity
+    if (vehicle.upwardVehicle) {
+        if ((vehicle.upwardVehicle.x - (vehicle.x + vehicle.width)) > this.inputManager.constraint.goUpwardDistance) {
+            vehicle.goUpward();   
+        }   
+    } else {
+        vehicle.goUpward(); 
     }
     
-    for (var i=0; i<this.laneArray2.length; ++i) {
-        this.laneArray2[i].move();   
-    }
+    // Check if vehicle behind has greater priority, then must change lane
     
-    for (var i=0; i<this.laneArray3.length; ++i) {
-        this.laneArray3[i].move();   
-    }
+    // Change lane
+    
 };

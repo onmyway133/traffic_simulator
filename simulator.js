@@ -3,22 +3,22 @@ function ETPSimulator () {
 }
 
 ETPSimulator.prototype.start = function () {
-    
-    var vehicleManager = new ETPVehicleManager();
-    var laneManager = new ETPLaneManager();
     var inputManager = this.inputManager;
+    var vehicleManager = new ETPVehicleManager();
+    var laneManager = new ETPLaneManager(inputManager);
     
     var game = new Core(this.inputManager.lane.width, this.inputManager.lane.height * this.inputManager.lane.numberOfLanes);
 
     game.fps = 15;
     this.preloadResources(game);
     game.onload = function() {
+        // TODO: consider each "enterframe" is 1 second
         game.rootScene.addEventListener('enterframe', function() {
             // Spawn vehicle and add to lane array
-            vehicleManager.spawnVehicles(game, inputManager, laneManager);
+            vehicleManager.spawnVehicles(game.rootScene, inputManager, laneManager);
             
             // move all vehicles
-            laneManager.move(game, inputManager);
+            laneManager.moveAllVehicles(game.rootScene, inputManager);
         });
     };
     

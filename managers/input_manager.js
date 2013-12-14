@@ -9,7 +9,7 @@ function ETPInputManager() {
     this.prototypeCar = new ETPCar(8, 5, this.square.scale);   // default 8 * 5
     this.prototypeBus = new ETPBus(16, 5, this.square.scale);  // default 16 * 5
 
-    this.constraint = new ETPConstraint();
+    this.constraint = new ETPConstraint(this.square.scale);            // default this.scale
 }
 
 ETPInputManager.prototype.setLane1Mode = function (mode) {

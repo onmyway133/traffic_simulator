@@ -1,7 +1,6 @@
 // Vehicle
 var ETPVehicle = enchant.Class.create(enchant.Sprite, {
     initialize : function (sW, sH, scale) {
-        
         // NOTE: parameters must match
         enchant.Sprite.call(this, sW * scale, sH * scale);
         
@@ -32,23 +31,10 @@ var ETPVehicle = enchant.Class.create(enchant.Sprite, {
         
         // set velocity
         var sVelocity = rand(this.sMaxVelocity) + 1;
-        cloneVehicle.velocity = sVelocity * this.scale;
+        cloneVehicle.velocity = sVelocity * (this.scale - 2);   // default * this.scale
     },
-    move : function () {
-        if (this.canMoveUpward()) {
-            this.x += this.velocity; 
-        }
-        else {
-            
-        }
-    },
-    canMoveUpward : function () {
-        // TODO: should consider vehicle width and velocity
-        if (this.upwardVehicle) {
-            return ((this.upwardVehicle.x - this.x) / 4 > 10 );
-        }
-
-        return true;
+    goUpward : function () {
+        this.x += this.velocity;
     }
 });
 

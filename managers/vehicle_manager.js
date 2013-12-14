@@ -27,20 +27,20 @@ ETPVehicleManager.prototype.createVehicle = function (inputManager, name) {
     return vehicle;
 };
 
-ETPVehicleManager.prototype.spawnVehicles = function (game, inputManager, laneManager) {
-    if (game.rootScene.age % inputManager.prototypeBike.appearInterval == 0) {
+ETPVehicleManager.prototype.spawnVehicles = function (scene, inputManager, laneManager) {
+    if (scene.age % inputManager.prototypeBike.appearInterval == 0) {
         var bike = this.createVehicle(inputManager, "Bike");
-        game.rootScene.addChild(bike);
+        scene.addChild(bike);
         laneManager.addToLaneArray(bike);
     }
-    if (game.rootScene.age % inputManager.prototypeCar.appearInterval == 0) {
+    if (scene.age % inputManager.prototypeCar.appearInterval == 0) {
         var car = this.createVehicle(inputManager, "Car");
-        game.rootScene.addChild(car);
+        scene.addChild(car);
         laneManager.addToLaneArray(car);
     }
-    if (game.rootScene.age % inputManager.prototypeBus.appearInterval == 0) {
+    if (scene.age % inputManager.prototypeBus.appearInterval == 0) {
         var bus = this.createVehicle(inputManager, "Bus");
-        game.rootScene.addChild(bus);
+        scene.addChild(bus);
         laneManager.addToLaneArray(bus);
     }
 };
